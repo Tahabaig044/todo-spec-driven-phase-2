@@ -1,0 +1,23 @@
+{
+  "specification": {
+    "outputDir": "./specs",
+    "templateDir": "./templates",
+    "validation": {
+      "strict": true,
+      "requireExamples": true
+    },
+    "integration": {
+      "withTests": true,
+      "autoGenerate": true
+    }
+  },
+  "generation": {
+    "targetLanguage": "typescript",
+    "outputPath": "./src",
+    "stubPath": "./stubs"
+  },
+  "verification": {
+    "automated": true,
+    "coverageThreshold": 90
+  }
+}
