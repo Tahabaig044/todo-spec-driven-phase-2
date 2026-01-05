@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(sp.constitution)",
+      "Skill(sp.specify)",
+      "Bash(.specify/scripts/powershell/create-new-feature.ps1 -Json \"Specify Phase 1 requirements for an in-memory Python console Todo application.\n\nInclude:\n- User stories for Add, View, Update, Delete, and Mark Complete\n- Task fields: id, title, description, completed\n- CLI interaction flow\n- Acceptance criteria for each feature\n- Error handling scenarios\n\nDo not describe implementation or architecture.\" --json --number 1 --short-name \"todo-app\" \"Specify Phase 1 requirements for an in-memory Python console Todo application.\n\nInclude:\n- User stories for Add, View, Update, Delete, and Mark Complete\n- Task fields: id, title, description, completed\n- CLI interaction flow\n- Acceptance criteria for each feature\n- Error handling scenarios\n\nDo not describe implementation or architecture.\")",
+      "Bash(python -m pip install psycopg2-binary)",
+      "Bash(python main.py)",
+      "Bash(python -m pip install asyncpg)",
+      "Bash(python -m pip install aiosqlite)",
+      "Bash(python -m pip install -r requirements.txt)",
+      "Bash(npm run dev)",
+      "Bash(python -m alembic upgrade head)"
+    ]
+  }
+}
