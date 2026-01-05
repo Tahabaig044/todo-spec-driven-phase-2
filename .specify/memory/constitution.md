@@ -1,55 +1,81 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+# Evolution of Todo Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Spec-Driven Development (NON-NEGOTIABLE)
+All development must follow strict Spec-Driven Development methodology: Specifications written → Tasks derived → Tests written → Implementation follows; No manual coding without spec and task traceability; Every change must be traceable to a spec and task ID.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### II. Console/CLI Interface Only
+The application must provide a console-based CLI interface only: Text in/out protocol: stdin/args → stdout, errors → stderr; Support human-readable console output with clear formatting; No GUI, web interface, or external API endpoints.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### III. In-Memory Storage (No Persistence)
+All data storage must be in-memory only: No file persistence, no database connections, no external storage; Data loss on program termination is acceptable for this phase; State management must be explicit and deterministic.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### IV. Python 3.13+ Standard
+All code must use Python 3.13+ features and standards: Leverage latest Python syntax and libraries; Follow PEP 8 style guidelines; Use type hints for all public interfaces; No external dependencies beyond standard library.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### V. Clean Architecture and Separation of Concerns
+Maintain clear architectural boundaries: Separation between business logic, data access, and presentation layers; Dependency inversion where appropriate; Single responsibility principle for all modules and functions; Explicit state management with pure functions where possible.
 
-### [PRINCIPLE_6_NAME]
+### VI. Testability and Deterministic Behavior
 
+All functions must be testable and produce deterministic outputs: Pure functions preferred for business logic; Clear input/output contracts; Predictable behavior regardless of execution environment; Comprehensive unit test coverage required.
 
-[PRINCIPLE__DESCRIPTION]
+## Constraints and Requirements
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+- Language: Python 3.13+
+- Interface: Console/CLI only
+- Storage: In-memory only (no files, no database)
+- Development style: Strict Spec-Driven Development
+- No manual coding allowed (must follow spec and tasks)
+- Clean architecture and separation of concerns
+- Each task must be traceable to a spec and task ID
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+## Prohibited Elements
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+- External databases
+- Web frameworks
+- AI features
+- File persistence
+- Manual coding without spec/task traceability
+- External dependencies beyond Python standard library
+- GUI or web interfaces
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+## Development Workflow
+
+- Strict adherence to Spec-Driven Development cycle
+- Specifications must be complete before task creation
+- Tasks must be traceable to specific spec requirements
+- Implementation must follow task definitions precisely
+- All changes require spec → task → implementation traceability
+- Code reviews must verify constitution compliance
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+This constitution supersedes all other development practices for the Evolution of Todo project. All development activities must comply with these principles. Amendments require explicit documentation, approval from project stakeholders, and a migration plan for existing code. All pull requests and code reviews must verify compliance with these principles. Code that violates these principles must be refactored to achieve compliance.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.0.0 | **Ratified**: 2025-12-28 | **Last Amended**: 2025-12-28
+
+## Phase 2 Addendum: Full-Stack Web Application
+
+### Phase 2 Constraints
+
+- Full-stack web application
+- Frontend: Next.js
+- Backend: FastAPI (Python)
+- Database: PostgreSQL (Neon)
+- REST API communication
+- No AI features in this phase
+
+### Phase 2 Principles
+
+- Phase 1 functionality must remain intact
+- API-first design
+- Clear separation between frontend and backend
+- Secure, minimal, and scalable architecture
+
+### Phase 2 Governance
+
+All Phase 2 development activities must comply with both the original constitution and these Phase 2 addendum principles. Phase 1 CLI functionality must be preserved and not broken by Phase 2 changes. The architecture must maintain clear separation between frontend and backend components while ensuring secure communication through well-defined REST APIs.
+
+**Phase 2 Version**: 2.0.0 | **Phase 2 Ratified**: 2025-12-29 | **Phase 2 Last Amended**: 2025-12-29

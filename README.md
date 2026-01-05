@@ -1,115 +1,246 @@
-# Todo Spec-Driven Application
+# Todo Application - Full-Stack Web Application (Phase 2)
 
-A spec-driven todo application built for Panaversity Hackathon II. This project follows a specification-driven development approach where specifications drive the implementation.
+This is a full-stack todo application built with Next.js (frontend) and FastAPI (backend) with PostgreSQL database. Phase 1 CLI functionality is preserved and maintained.
 
 ## Project Structure
 
 ```
 todo-spec-driven/
-├── src/                    # Source code implementation
-│   ├── components/         # UI components (if applicable)
-│   ├── controllers/        # API controllers
-│   ├── models/             # Data models
-│   ├── routes/             # API routes
-│   ├── services/           # Business logic services
-│   └── utils/              # Utility functions
-├── specs/                  # Specifications and requirements
-│   ├── unit/               # Unit test specifications
-│   ├── integration/        # Integration test specifications
-│   └── e2e/                # End-to-end test specifications
-├── tests/                  # Actual test implementations
-│   ├── unit/               # Unit tests
-│   ├── integration/        # Integration tests
-│   └── e2e/                # End-to-end tests
-├── config/                 # Configuration files
-├── docs/                   # Documentation
-└── utils/                  # Project utilities
+├── frontend/                 # Next.js frontend application
+│   ├── app/                 # Next.js app router
+│   ├── components/          # React components
+│   ├── types/              # TypeScript type definitions
+│   ├── services/           # API service
+│   └── context/            # React Context
+├── backend/                # FastAPI backend application
+│   ├── api/               # API routes
+│   ├── models/            # SQLAlchemy models
+│   ├── schemas/           # Pydantic schemas
+│   ├── database/          # Database configuration
+│   ├── services/          # Business logic
+│   └── crud/              # Database operations
+├── specs/                 # Project specifications
+└── src/                   # Phase 1 CLI application (preserved)
 ```
 
-## Spec-Driven Development Approach
+## Prerequisites
 
-This project implements a spec-driven development approach:
+- Node.js 18+ and npm
+- Python 3.13+
+- PostgreSQL (for local development) or Neon account (for cloud)
 
-1. **Specifications First**: Requirements and API contracts are defined first in the `specs/` directory
-2. **Implementation Driven**: Code is written to satisfy the specifications
-3. **Test Verification**: Tests verify that implementation matches specifications
+## Local Development Setup
 
-## Getting Started
+### Option 1: Using Docker (Recommended)
 
-### Prerequisites
+1. Make sure you have Docker and Docker Compose installed
+2. Run the application:
+   ```bash
+   docker-compose up --build
+   ```
 
-- Node.js (v16 or higher)
-- npm or yarn
+The application will be available at:
+- Frontend: http://localhost:3000
+- Backend API: http://localhost:8000
+- Backend API Documentation: http://localhost:8000/docs
 
-### Installation
+### Option 2: Manual Setup
 
-1. Clone the repository
+#### Backend Setup
+
+1. Navigate to the backend directory:
+   ```bash
+   cd backend
+   ```
+
+2. Create a virtual environment:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
+
+3. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. Set up the database:
+   ```bash
+   # Create a PostgreSQL database (using Neon or local PostgreSQL)
+   # Copy .env.example to .env and update with your database URL
+   cp .env.example .env
+   # Edit .env with your database connection string
+   ```
+
+5. Run database migrations:
+   ```bash
+   alembic upgrade head
+   ```
+
+6. Start the backend:
+   ```bash
+   uvicorn main:app --reload
+   ```
+
+#### Frontend Setup
+
+1. Navigate to the frontend directory:
+   ```bash
+   cd frontend
+   ```
+
 2. Install dependencies:
    ```bash
    npm install
    ```
 
-### Running the Application
+3. Create a .env.local file:
+   ```bash
+   # For local development
+   NEXT_PUBLIC_API_URL=http://localhost:8000/api
+   ```
 
-```bash
-# Development mode
-npm run dev
+4. Start the frontend:
+   ```bash
+   npm run dev
+   ```
 
-# Build for production
-npm run build
+The frontend will be available at http://localhost:3000
 
-# Run tests
-npm test
-```
+## Features
+
+- Add, view, update, delete, and mark tasks as complete
+- Responsive web UI built with Next.js and Tailwind CSS
+- REST API with FastAPI
+- PostgreSQL database with SQLAlchemy ORM
+- Real-time task management
+- Filtering by completion status
+- Task editing functionality
 
 ## API Endpoints
 
-The application provides the following API endpoints:
+- `GET /api/tasks` - Get all tasks
+- `GET /api/tasks/{id}` - Get a specific task
+- `POST /api/tasks` - Create a new task
+- `PUT /api/tasks/{id}` - Update a task
+- `DELETE /api/tasks/{id}` - Delete a task
 
-- `GET /api/todos` - Retrieve all todos
-- `POST /api/todos` - Create a new todo
-- `GET /api/todos/:id` - Retrieve a specific todo
-- `PUT /api/todos/:id` - Update a specific todo
-- `PATCH /api/todos/:id/complete` - Mark a todo as completed
-- `DELETE /api/todos/:id` - Delete a specific todo
-- `GET /health` - Health check endpoint
+## Phase 1 CLI Application (Preserved)
 
-## Panaversity Hackathon II Guidelines
+The original Phase 1 CLI application is preserved in the `src/` directory and can be run with:
+```bash
+python main.py
+```
 
-This project follows the Panaversity Hackathon II guidelines:
+### Phase 1 CLI Features
 
-- Spec-driven development approach
-- Clean architecture
-- Comprehensive testing
-- Proper documentation
-- Well-structured code
+- Add, view, update, delete, and mark tasks as complete/incomplete
+- In-memory storage (no persistence)
+- Command-line interface
+- Task filtering by completion status
 
-## Configuration
+### Phase 1 CLI Commands
 
-Environment variables can be configured in the `.env` file:
+#### Add a Task
+```
+add "title" ["description"]
+```
+Add a new task with a required title and optional description.
 
-- `NODE_ENV` - Node environment (development, production)
-- `PORT` - Server port (default: 3000)
-- `DATABASE_URL` - Database connection string
+Example:
+```
+add "Buy groceries" "Milk, bread, eggs"
+```
 
-## Scripts
+#### List Tasks
+```
+list
+```
+List all tasks with their ID, title, description, and status.
 
-- `npm start` - Start the production server
-- `npm run dev` - Start the development server with hot reloading
-- `npm run build` - Compile TypeScript to JavaScript
-- `npm test` - Run tests
-- `npm run test:watch` - Run tests in watch mode
-- `npm run test:coverage` - Run tests with coverage report
-- `npm run lint` - Lint the code
-- `npm run lint:fix` - Fix linting issues automatically
+#### List Completed Tasks
+```
+list completed
+```
+List only completed tasks.
 
-## Contributing
+#### List Pending Tasks
+```
+list pending
+```
+List only pending tasks.
 
-1. Define specifications in the `specs/` directory
-2. Implement code to satisfy the specifications
-3. Write tests to verify the implementation
-4. Submit a pull request
+#### Update a Task
+```
+update <id> "new_title" ["new_description"]
+```
+Update the title and/or description of an existing task.
 
-## License
+Example:
+```
+update 1 "Updated title" "Updated description"
+```
 
-This project is licensed under the MIT License.
+#### Mark Task as Complete
+```
+complete <id>
+```
+Mark a task as complete.
+
+Example:
+```
+complete 1
+```
+
+#### Mark Task as Incomplete
+```
+incomplete <id>
+```
+Mark a completed task as incomplete.
+
+Example:
+```
+incomplete 1
+```
+
+#### Delete a Task
+```
+delete <id>
+```
+Remove a task from the system.
+
+Example:
+```
+delete 1
+```
+
+#### Help
+```
+help
+```
+Show available commands and their usage.
+
+#### Quit
+```
+quit
+```
+Exit the application.
+
+## Architecture
+
+- Frontend: Next.js 14 with App Router, TypeScript, Tailwind CSS
+- Backend: FastAPI with Pydantic, SQLAlchemy ORM, PostgreSQL
+- Database: PostgreSQL (with Neon support)
+- Communication: REST API with JSON
+- Phase 1: Python 3.13+ CLI application with clean architecture
+
+## Development
+
+The project follows a clean architecture with clear separation between frontend and backend components. All changes maintain compatibility with Phase 1 functionality.
+
+## Deployment
+
+For deployment to cloud platforms:
+- Frontend: Deploy to Vercel, Netlify, or similar
+- Backend: Deploy to Railway, Render, or similar
+- Database: Use Neon PostgreSQL hosting
