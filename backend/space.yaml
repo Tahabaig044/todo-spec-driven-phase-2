@@ -1,0 +1,14 @@
+spec_version: '1.0'
+run_as: 'app'
+python_version: '3.11'
+hardware:
+  accelerator: 'cpu'
+  cpu_memory: '3xlarge+'
+  space_cpu: 'x4'
+  space_memory: '32GiB'
+env:
+  - 'HF_HUB_ENABLE_HF_TRANSFER=1'
+secrets:
+  - 'DATABASE_URL'
+ports:
+  - '8000'

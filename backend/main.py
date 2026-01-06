@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from api.tasks import router as tasks_router
 import uvicorn
+import os
 
 app = FastAPI(
     title="Todo API",
@@ -23,7 +24,12 @@ app.include_router(tasks_router, prefix="/api", tags=["tasks"])
 
 @app.get("/")
 def read_root():
-    return {"message": "Todo API is running"}
+    return {"message": "Todo API is running on Hugging Face Spaces"}
+
+@app.get("/health")
+def health_check():
+    return {"status": "healthy", "message": "Todo API is operational"}
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run("main:app", host="0.0.0.0", port=port, reload=True)
