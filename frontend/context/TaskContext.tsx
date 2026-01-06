@@ -100,7 +100,7 @@ export const TaskContextProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const updateTask = async (id: number, taskData: Partial<TaskInput>) => {
+  const updateTaskWithContext = async (id: number, taskData: Partial<TaskInput>) => {
     try {
       const updatedTask = await updateTask(id, taskData);
       dispatch({ type: 'UPDATE_TASK_SUCCESS', payload: updatedTask });
@@ -111,7 +111,7 @@ export const TaskContextProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const deleteTask = async (id: number) => {
+  const deleteTaskWithContext = async (id: number) => {
     try {
       await deleteTask(id);
       dispatch({ type: 'DELETE_TASK_SUCCESS', payload: id });
@@ -140,8 +140,8 @@ export const TaskContextProvider = ({ children }: { children: ReactNode }) => {
         loading: state.loading,
         error: state.error,
         addTask,
-        updateTask,
-        deleteTask,
+        updateTask: updateTaskWithContext,
+        deleteTask: deleteTaskWithContext,
         toggleTaskCompletion,
       }}
     >
