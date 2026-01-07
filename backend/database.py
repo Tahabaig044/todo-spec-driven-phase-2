@@ -14,14 +14,23 @@ load_dotenv()
 # For PostgreSQL with asyncpg, use: postgresql+asyncpg://user:pass@localhost/dbname
 DATABASE_URL = os.getenv("DATABASE_URL", "sqlite+aiosqlite:///./todo_test.db")
 
-# Create async engine
-engine = create_async_engine(
-    DATABASE_URL,
-    echo=True,  # Set to False in production
-    pool_pre_ping=True,
-    pool_size=5,
-    max_overflow=10
-)
+# Determine if we're using SQLite (doesn't support pool_size/max_overflow)
+if "sqlite" in DATABASE_URL:
+    # SQLite doesn't support pool_size and max_overflow
+    engine = create_async_engine(
+        DATABASE_URL,
+        echo=True,  # Set to False in production
+        pool_pre_ping=True
+    )
+else:
+    # PostgreSQL supports pool configurations
+    engine = create_async_engine(
+        DATABASE_URL,
+        echo=True,  # Set to False in production
+        pool_pre_ping=True,
+        pool_size=5,
+        max_overflow=10
+    )
 
 # Create async session maker
 AsyncSessionLocal = sessionmaker(

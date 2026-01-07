@@ -81,8 +81,26 @@ export const TaskContextProvider = ({ children }: { children: ReactNode }) => {
   const fetchTasks = async () => {
     try {
       dispatch({ type: 'FETCH_TASKS_START' });
-      const tasks = await getTasks();
-      dispatch({ type: 'FETCH_TASKS_SUCCESS', payload: tasks });
+      const data = await getTasks();
+
+      // Normalize API responses: accept either an array or an object
+      // that contains the array under `tasks` or `data` keys.
+      let tasksPayload: Task[] = [];
+      if (Array.isArray(data)) {
+        tasksPayload = data;
+      } else if (data && Array.isArray((data as any).tasks)) {
+        tasksPayload = (data as any).tasks;
+      } else if (data && Array.isArray((data as any).data)) {
+        tasksPayload = (data as any).data;
+      } else {
+        // If the response shape is unexpected, keep tasks empty and log for debugging
+        // (don't throw to avoid breaking the UI)
+        // eslint-disable-next-line no-console
+        console.warn('getTasks returned unexpected shape', data);
+        tasksPayload = [];
+      }
+
+      dispatch({ type: 'FETCH_TASKS_SUCCESS', payload: tasksPayload });
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Failed to fetch tasks';
       dispatch({ type: 'FETCH_TASKS_ERROR', payload: errorMessage });
