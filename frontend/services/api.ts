@@ -5,11 +5,29 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/a
 
 // Helper function to handle API responses
 const handleResponse = async (response: Response) => {
+  // Read as text first to safely handle empty bodies (e.g. 204 No Content)
+  const text = await response.text();
+
   if (!response.ok) {
-    const errorData = await response.json().catch(() => ({}));
-    throw new Error(errorData.detail || `HTTP error! status: ${response.status}`);
+    let errorData: any = {};
+    if (text) {
+      try {
+        errorData = JSON.parse(text);
+      } catch (e) {
+        // ignore parse errors and fall back to generic error
+      }
+    }
+    throw new Error(errorData?.detail || `HTTP error! status: ${response.status}`);
   }
-  return response.json();
+
+  if (!text) return null;
+
+  try {
+    return JSON.parse(text);
+  } catch (e) {
+    // If response isn't valid JSON, return null rather than throwing JSON parse error
+    return null;
+  }
 };
 
 export const getTasks = async (): Promise<Task[]> => {
